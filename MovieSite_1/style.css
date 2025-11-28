@@ -1,0 +1,94 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* হেডার ডিজাইন */
+header {
+    background-color: #1f1f1f;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #333;
+}
+
+.logo { font-size: 24px; font-weight: bold; color: white; }
+.highlight { color: #e50914; } /* Netflix Red */
+
+/* সার্চ বার */
+.search-box input {
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+    outline: none;
+}
+.search-box button {
+    padding: 10px;
+    background-color: #e50914;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+/* মুভি গ্রিড */
+.container { padding: 20px; }
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.movie-card {
+    background: #1f1f1f;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.movie-card:hover { transform: scale(1.05); }
+.movie-card img { width: 100%; height: 220px; object-fit: cover; }
+.movie-info { padding: 10px; text-align: center; }
+.movie-info h3 { font-size: 14px; margin: 0; }
+
+/* মডাল (Details Page) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+    background-color: #1f1f1f;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+}
+.modal-body { display: flex; gap: 20px; }
+.modal-body img { width: 150px; border-radius: 5px; }
+.close { position: absolute; right: 20px; top: 10px; font-size: 30px; cursor: pointer; }
+
+/* ডাউনলোড বাটন */
+.dl-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.p480 { background-color: #28a745; } /* Green */
+.p720 { background-color: #17a2b8; } /* Blue */
+.p1080 { background-color: #dc3545; } /* Red */
