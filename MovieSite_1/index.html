@@ -1,115 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies4U Clone</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <title><?php bloginfo( 'name' ); ?></title>
+    <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>">
 </head>
 <body>
 
-    <header>
-        <div class="logo">THEMOVIES<span class="highlight">FLIX</span></div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search movies..." onkeyup="searchMovie()">
-            <button><i class="fa fa-search"></i></button>
-        </div>
-    </header>
+<header>
+    <h1><a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+    <p><?php bloginfo( 'description' ); ?></p>
+</header>
 
-    <div class="container">
-        <h2>Latest Movies</h2>
-        <div class="movie-grid" id="movieContainer">
-            </div>
-    </div>
-
-    <div id="movieModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div class="modal-body">
-                <img id="modalPoster" src="" alt="Poster">
-                <div class="details">
-                    <h2 id="modalTitle">Movie Title</h2>
-                    <p id="modalPlot">Plot description goes here...</p>
-                    <div class="download-section">
-                        <h3>Download Links</h3>
-                        <a href="#" class="dl-btn p480">480p [300MB]</a>
-                        <a href="#" class="dl-btn p720">720p [900MB]</a>
-                        <a href="#" class="dl-btn p1080">1080p [2.5GB]</a>
-                    </div>
+<div class="container">
+    <div class="movie-grid">
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+            
+            <a href="<?php the_permalink(); ?>">
+                <div class="movie-card">
+                    <?php if ( has_post_thumbnail() ) {
+                        the_post_thumbnail();
+                    } else { ?>
+                        <img src="https://via.placeholder.com/150x220?text=No+Poster" alt="No Image">
+                    <?php } ?>
+                    
+                    <h3><?php the_title(); ?></h3>
                 </div>
-            </div>
-        </div>
+            </a>
+
+        <?php endwhile; else : ?>
+            <p>No movies found!</p>
+        <?php endif; ?>
     </div>
+</div>
 
-    <script src="script.js"></script> <script>
-        // এখানে আপনি আপনার মুভি ডেটা অ্যাড করবেন
-        const movies = [
-            {
-                id: 1,
-                title: "Tere Ishk Mein (2025)",
-                image: "https://via.placeholder.com/200x300", // এখানে আসল পোস্টার লিংক দেবেন
-                plot: "A tragic love story unfolds against the backdrop of Benaras...",
-                link480: "link_to_480p",
-                link720: "link_to_720p"
-            },
-            {
-                id: 2,
-                title: "Zootopia 2 (2025)",
-                image: "https://via.placeholder.com/200x300",
-                plot: "Judy Hopps and Nick Wilde return for another adventure...",
-                link480: "link_to_480p",
-                link720: "link_to_720p"
-            },
-             {
-                id: 3,
-                title: "Kantara: Chapter 1",
-                image: "https://via.placeholder.com/200x300",
-                plot: "A legend returns...",
-                link480: "link_to_480p",
-                link720: "link_to_720p"
-            }
-        ];
-
-        const container = document.getElementById('movieContainer');
-
-        // মুভি কার্ড দেখানোর ফাংশন
-        function displayMovies(list) {
-            container.innerHTML = "";
-            list.forEach(movie => {
-                const card = document.createElement('div');
-                card.classList.add('movie-card');
-                card.onclick = () => openModal(movie);
-                card.innerHTML = 
-                    <img src="${movie.image}" alt="${movie.title}">
-                    <div class="movie-info">
-                        <h3>${movie.title}</h3>
-                    </div>
-                ;
-                container.appendChild(card);
-            });
-        }
-
-        // সার্চ ফাংশন
-        function searchMovie() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = movies.filter(movie => movie.title.toLowerCase().includes(input));
-            displayMovies(filtered);
-        }
-
-        // মডাল ওপেন করার ফাংশন
-        function openModal(movie) {
-            document.getElementById('modalTitle').innerText = movie.title;
-            document.getElementById('modalPoster').src = movie.image;
-            document.getElementById('modalPlot').innerText = movie.plot;
-            document.getElementById('movieModal').style.display = "block";
-        }
-         function closeModal() {
-            document.getElementById('movieModal').style.display = "none";
-        }
-
-        // শুরুতে সব মুভি লোড হবে
-        displayMovies(movies);
-    </script>
 </body>
 </html>
